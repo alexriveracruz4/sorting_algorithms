@@ -11,30 +11,32 @@
  */
 int hoarePartition(int *array, int lo, int hi, size_t size)
 {
-	int pivot, tmp, i, j;
+	int pivot, tmp;
 
-	pivot = array[(lo + hi) / 2];
-	i = lo - 1;
-	j = hi + 1;
+	pivot = array[hi];
 
-	while (1)
+	while (lo <= hi)
 	{
-		do {
-			i++;
-		} while (array[i] < pivot);
+		while (array[lo] < pivot)
+			lo++;
 
-		do {
-			j--;
-		} while (array[j] > pivot);
+		while (array[hi] > pivot)
+			hi--;
 
-
-		if (i >= j)
-			return (j);
-		tmp = array[i];
-		array[i] = array[j];
-		array[j] = tmp;
-		print_array(array, size);
+		if (lo <= hi)
+		{
+			if (lo != hi)
+			{
+				tmp = array[lo];
+				array[lo] = array[hi];
+				array[hi] = tmp;
+				print_array(array, size);
+			}
+			lo++;
+			hi--;
+		}
 	}
+	return (hi);
 }
 
 /**
